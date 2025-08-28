@@ -1,3 +1,8 @@
+// app/ui/dashboard/sidenav.tsx (v0.7 ロールバック版)
+// 目的: 正しい未完成。ランドマーク/フォーカス可視化は未整備。
+// TODO: <nav aria-label="Main"> の付与
+// TODO: ボタンのtypeやフォーカス可視化、a11yの強化
+
 import Link from 'next/link';
 import NavLinks from '@/app/ui/dashboard/nav-links';
 import AcmeLogo from '@/app/ui/acme-logo';
@@ -14,9 +19,11 @@ export default function SideNav() {
           <AcmeLogo />
         </div>
       </Link>
+
+      {/* v0.7: divでラップ（landmark化は未対応） */}
       <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
         <NavLinks />
-        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
+        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block" />
         <form>
           <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
             <PowerIcon className="w-6" />
