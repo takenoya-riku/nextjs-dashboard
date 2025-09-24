@@ -51,6 +51,9 @@ export default async function RevenueChart() {
             </div>
           ))}
         </div>
+        <span className='mt-5 text-gray-500 text-sm block'>
+          横軸は月、縦軸は売上額を表し、棒の高さで月ごとの売上を比較できます。
+        </span>
         <div className="flex items-center pb-2 pt-6">
           <CalendarIcon className="h-5 w-5 text-gray-500" />
           <h3 className="ml-2 text-sm text-gray-500 ">Last 12 months</h3>
