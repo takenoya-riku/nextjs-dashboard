@@ -11,7 +11,7 @@ export default async function LatestInvoices() {
         Latest Invoices
       </h2>
       <div className="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
-        <div className="px-6">
+        <div className="px-6 divide-y divide-gray-300">
           {latestInvoices.map((invoice, i) => {
             return (
               <div
@@ -32,7 +32,7 @@ export default async function LatestInvoices() {
                     <p className="truncate text-sm font-semibold md:text-base">
                       {invoice.name}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="hidden md:block text-sm text-gray-500">
                       {invoice.email}
                     </p>
                   </div>
