@@ -22,6 +22,10 @@
     "use-debounce": "^10.0.4",
     "zod": "^3.25.17"
   },
+  "volta": {
+    "node": "20.18.0",
+    "yarn": "1.22.17"
+  },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "22.10.7",
