@@ -1,5 +1,7 @@
-## Next.js App Router Course - Starter
+# 環境構築手順
 
-This is the starter template for the Next.js App Router Course. It contains the starting code for the dashboard application.
+詳細な環境構築手順は以下を参照してください：
 
-For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
+- [mac用手順](./docs/setup-mac.md)
+
+- [Windows用手順](./docs/setup-windows.md)
