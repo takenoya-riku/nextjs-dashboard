@@ -157,7 +157,7 @@ pnpm install
 pnpm dev
 ```
 
-ブラウザで <http://localhost:3000> が開ければ OK
+ブラウザで <http://localhost:3000/dashboard> が開ければ OK
 
 ## **リポジトリのクローンと起動**
 
