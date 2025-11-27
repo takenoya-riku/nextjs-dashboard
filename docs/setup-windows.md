@@ -1,6 +1,6 @@
 # インターン課題 環境構築（windows）
 
-## **WSL2 を入れる（Windows 側）**
+## **WSL2を入れる（導入済みの場合、スキップ）**
 
 管理者権限の PowerShell を開く
 右クリック → 管理者として実行
@@ -11,7 +11,7 @@
 wsl --install -d Ubuntu
 ```
 
-自動で再起動 → 初回起動で **UNIX ユーザー名とパスワード** を作成
+自動もしくは手動で再起動 → 初回起動で **ユーザー名とパスワード** を作成
 
 状態確認
 
@@ -20,9 +20,9 @@ wsl --status
 wsl -l -v
 ```
 
-Ubuntu が **Version 2** になっていれば OK
+Ubuntuが **Version 2** になっていればOK
 
-もし失敗する場合
+もし失敗する場合、以下の設定を確認
 
 - BIOS の仮想化支援（Intel VT-x / AMD-V）を有効化
 - Windows の機能で「仮想マシン プラットフォーム」を有効化 → 再起動
@@ -32,66 +32,73 @@ Ubuntu が **Version 2** になっていれば OK
 wsl --install -d Ubuntu
 ```
 
-## **Ubuntu の初期設定（WSL）**
+## **Ubuntu初期設定**
 
 - Ubuntu のターミナルで実行します。
 - Windows の **スタートメニュー** を開く
 - Ubuntu と入力して検索
 - Ubuntu（または Ubuntu-22.04 などインストールしたバージョン名）をクリック
-  
-  → 黒い画面（ターミナル）が開き、`username@DESKTOP:~$` のようなプロンプトが出ればOK
+  黒い画面（ターミナル）が開き、`username@DESKTOP:~$` のようなプロンプトが出ればOK
 
 ```console
-# 最新化
-sudo add-apt-repository ppa:git-core/ppa -y
-sudo apt update
-sudo apt install -y git
-git --version
 
-# Git の初期設定（あなたの情報に置き換え）
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-git config --global init.defaultBranch main
-git config --global core.autocrlf false   # 改行の事故防止
-
-# SSH 認証を使う場合
-ssh-keygen -t ed25519 -C "you@example.com"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-cat ~/.ssh/id_ed25519.pub   # これを GitHub の SSH keys に登録
-ssh -T git@github.com       # 成功メッセージで確認
-
-# 確認
+# Gitが入っているか確認
 git --version
 git config --list
 
+# 最新版が必要な場合のみ実行
+# ※ Ubuntu標準は古いことがあるため、最新Gitを使いたい場合はPPAを追加
+sudo add-apt-repository ppa:git-core/ppa -y
+
+# gitインストールが必要な場合のみ実行
+sudo apt update
+sudo apt install -y git
+
+# バージョン確認
+git --version
+
+# Gitの初期設定（初回のみ）
+# コミットに使うユーザー情報を登録
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+
+# デフォルトブランチをmain
+git config --global init.defaultBranch main
+
+# 改行コードの自動変換を無効化（WindowsとLinuxの改行差異による事故防止）
+git config --global core.autocrlf false   # 改行の事故防止
+
 ```
 
-※WSL 上で作業するフォルダの場所によって、処理速度が大きく変わるため
-
-作業フォルダは Linux 側（例: /home/あなた）に置きます。
-
-## **Visual Studio Code のインストール**
+## **Visual Studio Codeのインストール（インストール済みの場合、スキップ）**
 
 1. <https://code.visualstudio.com> から VS Code をインストール
-2. 拡張機能（Extensions）から以下をインストール：
+2. 任意で、拡張機能（Extensions）から以下をインストール：
 
 - **Auto Close/Auto Rename Tag**  
   JSX/TSX タグを自動補完・同期更新（タグ漏れ・修正を軽減）
+
 - **Path Intellisense**  
   import パス補完（複雑な階層やエイリアスでも迷わず入力）
+
 - **Tailwind CSS IntelliSense**  
   クラス補完・色プレビュー・ルールチェック
+
 - **ESLint**  
   規約違反や潜在バグを検出
+
 - **Prettier**  
   自動整形でスタイル統一
+
 - **Error Lens**  
   エラー・警告を強調表示（修正スピード向上）
+
 - **GitLens**  
   blame・履歴・コミット詳細が見やすい
+
 - **Git History**  
   コミット履歴を視覚的に確認
+
 - **Git**  
   VS Code 内で基本 Git 操作（commit / push / pull）
 
@@ -112,67 +119,19 @@ volta -v
 
 既存の Node を PATH から外したら、`hash -r` でコマンドキャッシュをクリア。
 
-## **GitHub 認証の準備**
-
-SSH 方式
-
-```console
-# 鍵を作る（メールは GitHub に登録のもの）
-ssh-keygen -t ed25519 -C "you@example.com"
-
-# エージェント起動＆鍵登録
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
-
-# 公開鍵を表示してコピー
-cat ~/.ssh/id_ed25519.pub
-```
-
-[GitHub](https://github.com/) → 右上アイコン → **Settings** → **SSH and GPG keys** → **New SSH key**
-
-さきほどの公開鍵を貼り付けて保存
-
-接続確認
-
-```console
-ssh -T git@github.com
-
-# "Hi <ユーザー名>! You've successfully authenticated..." と出れば成功
-```
-
-リポジトリを clone
-
-```console
-cd ~
-# SSH の場合
-git clone git@github.com:takenoya-riku/nextjs-dashboard.git
-
-cd nextjs-dashboard
-```
-
-依存を入れて動作確認
-
-```console
-pnpm install
-pnpm dev
-```
-
-ブラウザで <http://localhost:3000/dashboard> が開ければ OK
-
 ## **リポジトリのクローンと起動**
 
 作業ディレクトリを作成し移動
 
 ```console
-mkdir -p ~/work
-cd ~/work
+mkdir work
+cd work
 ```
 
 リポジトリをクローン
 
 ```console
-git clone https://github.com/takenoya-riku/nextjs-dashboard.git
-cd nextjs-dashboard
+git clone GitHubの<>codeタブの<>codeをクリック、HTTPSのURL
 ```
 
 依存関係インストール
@@ -181,7 +140,7 @@ cd nextjs-dashboard
 pnpm install
 ```
 
-環境変数ファイルの作成（nextjs-dashboardの直下）
+環境変数ファイルの作成（プロジェクトの直下）
 
 ```console
 .env
