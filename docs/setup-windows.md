@@ -155,7 +155,7 @@ cd ~/work
 
 ```console
 git clone GitHubの緑色の<>codeをクリック、HTTPSのURL
-cd nextjs-dashboard
+cd リポジトリ
 ```
 
 ### 5-3. 依存関係をインストール
