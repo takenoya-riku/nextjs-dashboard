@@ -1,154 +1,180 @@
-# インターン課題 環境構築（windows）
 
-## **WSL2を入れる（導入済みの場合、スキップ）**
+# インターン課題：環境構築（Windows/WSL2）
 
-管理者権限の PowerShell を開く
-右クリック → 管理者として実行
+## 1. WSL2 の導入
 
-インストール
+> **WSL2（Windows Subsystem for Linux 2）** は、Windows上でLinux環境を利用できる機能です。
+
+---
+
+### 1-1. WSL2 のインストール
+
+管理者権限の PowerShell を開き、以下を実行：
 
 ```console
 wsl --install -d Ubuntu
 ```
 
-自動もしくは手動で再起動 → 初回起動で **ユーザー名とパスワード** を作成
+※ 初回起動は数分かかる場合があります。Ubuntu-22.04 などのバージョン名が表示されれば正常です。
 
-状態確認
+インストール後、自動または手動で再起動し、初回起動時に **ユーザー名とパスワード** を作成します。
+
+> よくあるトラブルと対処法：
+> - WSL2の初回起動時に「Windowsの更新が必要」と表示された場合は、
+Windows Updateを実施してください。
+Ubuntuのインストール後、WSL2のバージョンが「1」になっている場合は `wsl --set-version Ubuntu 2` を実行してください。
+> - インストールや起動に失敗する場合は、以下を確認してください：
+>   - BIOS の仮想化支援（Intel VT-x / AMD-V）を有効化
+>   - Windows の機能で「仮想マシン プラットフォーム」を有効化 → 再起動
+>   - 再度 `wsl --install -d Ubuntu` を実行
+
+### 1-2. WSL2 の状態確認
 
 ```console
 wsl --status
 wsl -l -v
 ```
 
-Ubuntuが **Version 2** になっていればOK
+Ubuntu が **Version 2** になっていればOK。
 
-もし失敗する場合、以下の設定を確認
+## 2. Ubuntu 初期設定・Git の導入
 
-- BIOS の仮想化支援（Intel VT-x / AMD-V）を有効化
-- Windows の機能で「仮想マシン プラットフォーム」を有効化 → 再起動
-- 再度 以下を実行
+> 以降は Ubuntu ターミナルで作業します。
 
-```console
-wsl --install -d Ubuntu
-```
-
-## **Ubuntu初期設定**
-
-- Ubuntu のターミナルで実行します。
-- Windows の **スタートメニュー** を開く
-- Ubuntu と入力して検索
-- Ubuntu（または Ubuntu-22.04 などインストールしたバージョン名）をクリック
-  黒い画面（ターミナル）が開き、`username@DESKTOP:~$` のようなプロンプトが出ればOK
+### 2-1. Git のインストール
 
 ```console
-
 # Gitが入っているか確認
 git --version
-git config --list
 
-# 最新版が必要な場合のみ実行
-# ※ Ubuntu標準は古いことがあるため、最新Gitを使いたい場合はPPAを追加
+# 最新版が必要な場合のみ（任意）
 sudo add-apt-repository ppa:git-core/ppa -y
-
-# gitインストールが必要な場合のみ実行
 sudo apt update
 sudo apt install -y git
 
+sudo apt upgrade -y  # セキュリティ更新も推奨
+
 # バージョン確認
 git --version
+```
 
-# Gitの初期設定（初回のみ）
-# コミットに使うユーザー情報を登録
+### 2-2. Git の初期設定
+
+```console
+# ユーザー情報を登録
 git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 
-# デフォルトブランチをmain
+# デフォルトブランチを main
 git config --global init.defaultBranch main
 
 # 改行コードの自動変換を無効化（WindowsとLinuxの改行差異による事故防止）
-git config --global core.autocrlf false   # 改行の事故防止
-
+git config --global core.autocrlf false
 ```
 
-## **Visual Studio Codeのインストール（インストール済みの場合、スキップ）**
+※core.autocrlf は「Windowsで作業する場合はfalse推奨」です。混在環境での改行事故防止のためです。
 
-1. <https://code.visualstudio.com> から VS Code をインストール
-2. 任意で、拡張機能（Extensions）から以下をインストール：
+## 3. Visual Studio Code のインストール
 
-- **Auto Close/Auto Rename Tag**  
-  JSX/TSX タグを自動補完・同期更新（タグ漏れ・修正を軽減）
+> **Visual Studio Code（VS Code）** は、現在もっとも広く使われているコードエディタのひとつです。
 
-- **Path Intellisense**  
-  import パス補完（複雑な階層やエイリアスでも迷わず入力）
+### 3-1. VS Code をインストール
 
-- **Tailwind CSS IntelliSense**  
-  クラス補完・色プレビュー・ルールチェック
+<https://code.visualstudio.com> からインストール
 
-- **ESLint**  
-  規約違反や潜在バグを検出
+> WSL2上でVSCodeを使う場合は「Remote - WSL」拡張のインストールを推奨します。
+> Windows側でVSCodeをインストール後、WSL2ターミナルから `code .` で起動できます。
 
-- **Prettier**  
-  自動整形でスタイル統一
+### 3-2. 拡張機能（Extensions）をインストール（任意）
 
-- **Error Lens**  
-  エラー・警告を強調表示（修正スピード向上）
+- **Tailwind CSS IntelliSense**：クラス補完・色プレビュー・ルールチェック
+- **ESLint**：規約違反や潜在バグを検出
+- **Prettier - Code formatter**：自動整形でスタイル統一
+- **Error Lens**：エラー・警告を強調表示（修正スピード向上）
+- **GitLens**：blame・履歴・コミット詳細が見やすい
+- **Remote Development**：WSL2上でVSCodeを使う場合はこの拡張パックのインストールを推奨（Remote - WSLを含む）
 
-- **GitLens**  
-  blame・履歴・コミット詳細が見やすい
+## 4. Node.js と pnpm の導入（Volta を使用）
 
-- **Git History**  
-  コミット履歴を視覚的に確認
+> 本プロジェクトは **Next.js** を使用しています。
+> Node.js とパッケージマネージャの管理には **Volta** を使用します。
 
-- **Git**  
-  VS Code 内で基本 Git 操作（commit / push / pull）
-
-## **Node.js と pnpm の導入**
+### 4-1. Volta のインストール
 
 ```console
-# Volta をインストール
 curl https://get.volta.sh | bash
-
-# シェルを再読み込み
-source ~/.bashrc
-
-# 正しく入ったか確認
-volta -v
 ```
+
+インストール後、ターミナルを一度閉じて再度開くか、次を実行：
+
+```console
+source ~/.bashrc  # bashの場合
+source ~/.zshrc  # zshの場合
+```
+
+Volta が正しくインストールされたか確認：
+
+```console
+volta --version
+```
+
+VoltaでインストールしたNode.jsやpnpmは自動でPATHが通ります。
 
 すでに nvm を入れている場合は、`.bashrc` や `.zshrc` の `export NVM_DIR=...` と `source "$NVM_DIR/nvm.sh"` を**コメントアウト**し、`corepack` を有効化していたら `corepack disable` しておくと衝突を避けられます。
 
 既存の Node を PATH から外したら、`hash -r` でコマンドキャッシュをクリア。
 
-## **リポジトリのクローンと起動**
-
-作業ディレクトリを作成し移動
+### 4-2. Node.js を Volta でインストール
 
 ```console
-mkdir work
-cd work
+volta install node@20.18.0
+node -v
 ```
 
-リポジトリをクローン
+`node -v` で 20.18.0 が表示されれば OK。
+
+### 4-3. pnpm を Volta 経由でインストール
 
 ```console
-git clone GitHubの<>codeタブの<>codeをクリック、HTTPSのURL
+volta install pnpm
+pnpm -v
 ```
 
-依存関係インストール
+pnpm のバージョンが表示されればインストール完了です。
+
+## 5. リポジトリのクローンと起動
+
+### 5-1. 作業ディレクトリを作成して移動
+
+```console
+mkdir -p ~/work
+cd ~/work
+```
+
+### 5-2. リポジトリをクローン
+
+```console
+git clone GitHubの緑色の<>codeをクリック、HTTPSのURL
+cd nextjs-dashboard
+```
+
+### 5-3. 依存関係をインストール
 
 ```console
 pnpm install
 ```
 
-環境変数ファイルの作成（プロジェクトの直下）
+### 5-4. 環境変数ファイルの作成
+
+プロジェクト直下に .env ファイルを作成します。
 
 ```console
-.env
+touch .env
 ```
 
-※ファイルの設定は社員に共有してもらう
+> .envファイルは空でOKです。内容は社員に確認してください。
 
-開発サーバー起動
+### 5-5. 開発サーバーを起動
 
 ```console
 pnpm dev
@@ -156,13 +182,13 @@ pnpm dev
 
 ブラウザで <http://localhost:3000> が開ければ OK
 
-## **Issue を自分にアサイン**
+## 6. Issue を自分にアサイン
 
 - GitHub の **Issues** を開く
 - 取り組む Issue を開く
 - 右サイドバー **Assignees** で自分を選択
 
-### **ブランチ作成規約**
+### 6-1. ブランチ作成規約
 
 - ベース: `main`
 - 命名: `feature/番号`
@@ -172,17 +198,17 @@ pnpm dev
 git checkout -b feature/10
 ```
 
-### **変更のコミットとPush**
+### 6-2. 変更のコミットとPush
 
 ```console
 git add .
 git commit -m "修正内容"
-git push origin feature/123
+git push origin feature/10
 ```
 
 初回 push でブラウザが開いたらサインインと承認を行ってください（Passkey も可）
 
-### **Pull Request の作成**
+### 6-3. Pull Request の作成
 
 ```console
 Compare & pull request
@@ -195,3 +221,5 @@ base: `main`
 Reviewer: `@takenoya-riku` `@e3sys-oishi` `@leaf-y`
 
 指摘対応は同ブランチに追加コミットして push
+
+PR作成時はGitHubリポジトリ画面右上の「Compare & pull request」ボタンをクリックしてください。
