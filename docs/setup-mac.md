@@ -244,3 +244,5 @@ base: `main`
 Reviewer: `@takenoya-riku` `@e3sys-oishi` `@leaf-y`
 
 指摘対応は同ブランチに追加コミットして push
+
+PR作成時はGitHubリポジトリ画面右上の「Compare & pull request」ボタンをクリックしてください。
