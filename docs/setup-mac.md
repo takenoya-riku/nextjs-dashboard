@@ -62,7 +62,7 @@ Homebrew のインストールと設定は完了 です。
 
 ---
 
-### 2-1. Gitをインストールする
+### 2-1. Git をインストールする
 
 次のコマンドを実行し、Git をインストールします。
 
@@ -86,11 +86,11 @@ git --version
 > 拡張機能が豊富で、Web・アプリ開発に必要な機能を簡単に追加できます。  
 > すでにインストール済みの場合は、この手順はスキップして構いません。
 
-### 3-1. <https://code.visualstudio.com> からインストール
-
 ### 3-1. VS Code をインストールする
 
-Homebrew を使ってインストールします。ターミナルで以下のコマンドを入力します。
+Homebrew を使わない場合は、<https://code.visualstudio.com> からインストールします。
+
+Homebrew を使う場合は、ターミナルで以下のコマンドを入力します。
 
 ```console
 brew install --cask visual-studio-code
@@ -104,29 +104,21 @@ Launchpad を開くと「Visual Studio Code」が追加されているはずで�
 
 ### 3-3. 任意で、拡張機能（Extensions）から以下をインストール
 
-- **Auto Close/Auto Rename Tag**  
-  JSX/TSX タグを自動補完・同期更新（タグ漏れ・修正を軽減）
-- **Path Intellisense**  
-  import パス補完（複雑な階層やエイリアスでも迷わず入力）
 - **Tailwind CSS IntelliSense**  
   クラス補完・色プレビュー・ルールチェック
 - **ESLint**  
   規約違反や潜在バグを検出
-- **Prettier**  
+- **Prettier - Code formatter**  
   自動整形でスタイル統一
 - **Error Lens**  
   エラー・警告を強調表示（修正スピード向上）
 - **GitLens**  
   blame・履歴・コミット詳細が見やすい
-- **Git History**  
-  コミット履歴を視覚的に確認
-- **Git**  
-  VS Code 内で基本 Git 操作（commit / push / pull）
 
 ## **4. Node.js と pnpm の導入（Volta を使用）**
 
 > 本プロジェクトは **Next.js** を使用しています。  
-> 動作には **Node.js 18.12 以上（LTS 推奨）** が必要です。  
+> 動作には **Node.js 20.18.0** が必要です。  
 > Node.js とパッケージマネージャの管理には **Volta** を使用します。
 
 ---
@@ -153,16 +145,16 @@ volta --version
 
 Volta は PATH の設定を自動で行うため、通常は追加設定は不要です。
 
-### 4-2. Node.js（LTS）を Volta でインストール
+### 4-2. Node.js を Volta でインストール
 
 Volta を使うことで、Node.js のバージョン管理が簡単になります。
 
 ```console
-volta install node@lts
+volta install node@20.18.0
 node -v
 ```
 
-`node -v` で 18.12 以上 が表示されれば OK です。
+`node -v` で 20.18.0 が表示されれば OK です。
 
 ### 4-3. pnpm を Volta 経由でインストール
 
@@ -185,10 +177,13 @@ cd ~/work
 ### 5-2. リポジトリをクローン
 
 ```console
-git clone GitHubの<>codeタブの<>codeをクリック、HTTPSのURL
+git clone GitHubの緑色の<>codeをクリック、HTTPSのURL
+cd nextjs-dashboard
 ```
 
 ### 5-3. 依存関係をインストール
+
+クローンしたディレクトリに移動してから、依存関係をインストールします。
 
 ```console
 pnpm install
@@ -226,17 +221,17 @@ pnpm dev
 git checkout -b feature/10
 ```
 
-### 6-2.変更のコミットとPush
+### 6-2. 変更のコミットとPush
 
 ```console
 git add .
 git commit -m "修正内容"
-git push origin feature/123
+git push origin feature/10
 ```
 
 初回 push でブラウザが開いたらサインインと承認を行ってください（Passkey も可）
 
-### 6-3.Pull Request の作成
+### 6-3. Pull Request の作成
 
 ```console
 Compare & pull request
