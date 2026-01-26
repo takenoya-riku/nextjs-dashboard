@@ -22,7 +22,7 @@ export default async function RevenueChart() {
   }
 
   return (
-    <div className="w-full md:col-span-4">
+    <div className="w-full">
       <h2 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
         Recent Revenue
       </h2>
