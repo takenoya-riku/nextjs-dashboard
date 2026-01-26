@@ -11,17 +11,17 @@ export default async function Page() {
             <h1 className={`${lusitana.className} mb-4 text-xl`}>
                 Dashboard
             </h1>
-            <div>
+            <div className="grid grid-cols-4 gap-4">
                 <Suspense fallback={<CardSkeleton />}>
                     <CardWrapper />
                 </Suspense>
             </div>
-            <div>
+            <div className="grid grid-cols-2 gap-4">
                 <Suspense fallback={<RevenueChartSkeleton />}>
                     <RevenueChart />
                 </Suspense>
                 <Suspense fallback={<LatestInvoicesSkeleton />}>
-                <LatestInvoices />
+                    <LatestInvoices />
                 </Suspense>
             </div>
         </main>
