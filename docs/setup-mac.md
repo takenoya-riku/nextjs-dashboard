@@ -6,7 +6,7 @@
 
 ---
 
-### 1-1. Homebrewがインストールされているか確認
+### 1-1. Homebrewがインストールされているか確認（インストール済みはスキップ）
 
 Launchpad → 「ターミナル」で検索 または `⌘ + スペース` で Spotlight を開き、「terminal」と入力
 
@@ -62,7 +62,13 @@ Homebrew のインストールと設定は完了 です。
 
 ---
 
-### 2-1. Git をインストールする
+### 2-1. Git をインストールする（インストール済みはスキップ）
+
+Git がインストールされていないことを確認します。
+
+```console
+git --version
+```
 
 次のコマンドを実行し、Git をインストールします。
 
@@ -80,13 +86,15 @@ git --version
 
 例：`git version 2.47.0` のように表示されれば正常にインストールされています。
 
-## **3. Visual Studio Codeのインストール（インストール済みの場合、スキップ）**
+## **3. Visual Studio Codeのインストール**
 
 > **Visual Studio Code（VS Code）** は、現在もっとも広く使われているコードエディタのひとつです。  
 > 拡張機能が豊富で、Web・アプリ開発に必要な機能を簡単に追加できます。  
 > すでにインストール済みの場合は、この手順はスキップして構いません。
 
-### 3-1. VS Code をインストールする
+### 3-1. VS Code をインストールする（インストール済みはスキップ）
+
+Launchpad で「Visual Studio Code」がインストールされていないことを確認。
 
 Homebrew を使わない場合は、<https://code.visualstudio.com> からインストールします。
 
@@ -123,7 +131,13 @@ Launchpad を開くと「Visual Studio Code」が追加されているはずで�
 
 ---
 
-### 4-1. Volta のインストール
+### 4-1. Volta のインストール（インストール済みはスキップ）
+
+Volta がインストールされていないことを確認します。
+
+```console
+volta --version
+```
 
 次のコマンドを実行して Volta をインストールします。
 
@@ -145,20 +159,22 @@ volta --version
 
 Volta は PATH の設定を自動で行うため、通常は追加設定は不要です。
 
-### 4-2. Node.js を Volta でインストール
+### 4-2. Node.js を Volta でインストール（インストール済みはスキップ）
 
 Volta を使うことで、Node.js のバージョン管理が簡単になります。
 
 ```console
+node -v
 volta install node@20.18.0
 node -v
 ```
 
 `node -v` で 20.18.0 が表示されれば OK です。
 
-### 4-3. pnpm を Volta 経由でインストール
+### 4-3. pnpm を Volta 経由でインストール（インストール済みはスキップ）
 
 ```console
+pnpm -v
 volta install pnpm
 pnpm -v
 ```
