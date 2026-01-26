@@ -9,6 +9,15 @@
 
 ### 1-1. WSL2 のインストール
 
+WSL2 のインストール確認。
+
+```console
+wsl --status
+wsl -l -v
+```
+
+Ubuntu が **Version 2** になっていればOK。（インストール済みは1-1.と1-2スキップ）
+
 管理者権限の PowerShell を開き、以下を実行：
 
 ```console
@@ -41,7 +50,7 @@ Ubuntu が **Version 2** になっていればOK。
 
 > 以降は Ubuntu ターミナルで作業します。
 
-### 2-1. Git のインストール
+### 2-1. Git のインストール（インストール済みはスキップ）
 
 ```console
 # Gitが入っているか確認
@@ -58,7 +67,7 @@ sudo apt upgrade -y  # セキュリティ更新も推奨
 git --version
 ```
 
-### 2-2. Git の初期設定
+### 2-2. Git の初期設定（初期設定済みはスキップ）
 
 ```console
 # ユーザー情報を登録
@@ -78,7 +87,9 @@ git config --global core.autocrlf false
 
 > **Visual Studio Code（VS Code）** は、現在もっとも広く使われているコードエディタのひとつです。
 
-### 3-1. VS Code をインストール
+### 3-1. Visual Studio Code をインストール（インストール済みはスキップ）
+
+「Visual Studio Code」がインストールされていないことを確認。
 
 <https://code.visualstudio.com> からインストール
 
@@ -99,7 +110,15 @@ git config --global core.autocrlf false
 > 本プロジェクトは **Next.js** を使用しています。
 > Node.js とパッケージマネージャの管理には **Volta** を使用します。
 
-### 4-1. Volta のインストール
+### 4-1. Volta のインストール（インストール済みはスキップ）
+
+Volta がインストールされていないことを確認：
+
+```console
+volta --version
+```
+
+次のコマンドを実行して Volta をインストールします。
 
 ```console
 curl https://get.volta.sh | bash
@@ -124,18 +143,22 @@ VoltaでインストールしたNode.jsやpnpmは自動でPATHが通ります。
 
 既存の Node を PATH から外したら、`hash -r` でコマンドキャッシュをクリア。
 
-### 4-2. Node.js を Volta でインストール
+### 4-2. Node.js を Volta でインストール（インストール済みはスキップ）
+
+Volta を使うことで、Node.js のバージョン管理が簡単になります。
 
 ```console
+node -v
 volta install node@20.18.0
 node -v
 ```
 
 `node -v` で 20.18.0 が表示されれば OK。
 
-### 4-3. pnpm を Volta 経由でインストール
+### 4-3. pnpm を Volta 経由でインストール（インストール済みはスキップ）
 
 ```console
+pnpm -v
 volta install pnpm
 pnpm -v
 ```
